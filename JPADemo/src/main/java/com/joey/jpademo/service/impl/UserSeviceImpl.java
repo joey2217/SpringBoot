@@ -4,9 +4,9 @@ import com.joey.jpademo.dao.UserDao;
 import com.joey.jpademo.entity.User;
 import com.joey.jpademo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Joey
@@ -14,10 +14,12 @@ import java.util.List;
  * @desc UserServiceImpl
  **/
 @Service
+@CacheConfig(cacheNames = "user")
 public class UserSeviceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Cacheable
     @Override
     public User getOne(Long id) {
         return userDao.findUserById(id);
@@ -28,8 +30,4 @@ public class UserSeviceImpl implements UserService {
         return userDao.save(user);
     }
 
-    @Override
-    public List<User> findUserByUsernameEndsWith(String username, String end) {
-        return userDao.findUserByUsernameEndsWith(username,end);
-    }
 }

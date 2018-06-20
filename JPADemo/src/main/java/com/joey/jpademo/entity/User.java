@@ -1,5 +1,7 @@
 package com.joey.jpademo.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,9 +19,11 @@ public class User implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Length(min = 2)
     @Column(name = "username")
     private String username;
 
+    @Length(min = 6,max = 20)
     @Column(name = "password")
     private String password;
 
