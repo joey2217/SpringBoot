@@ -1,16 +1,15 @@
-package com.joey.jpademo;
+package com.joey.jms;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Joey
  */
 @SpringBootApplication
-public class JpaDemoApplication {
+public class JmsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JpaDemoApplication.class, args);
+        SpringApplication.run(JmsApplication.class, args);
     }
 }

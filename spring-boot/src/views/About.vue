@@ -1,6 +1,6 @@
 <template>
    <div>
-        <button type="button" class="btn btn-primary" @click="click">Primary</button>
+        <button type="button" class="btn btn-primary" @click="click">getUser</button>
         <input type="file" name="file" @change="upload($event)">
    </div>
 </template>
