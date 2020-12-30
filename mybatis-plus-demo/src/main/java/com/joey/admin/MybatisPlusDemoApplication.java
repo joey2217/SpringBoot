@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Joey
  */
-@MapperScan("com.joey.admin.mapper")
 @SpringBootApplication
 public class MybatisPlusDemoApplication {
 
