@@ -1,7 +1,16 @@
-package com.joey.admin.bean.entity; /**
- * @author EDZ
- * @create 2020-12-30 18:00
- * @desc UserDO
+package com.joey.admin.bean.entity;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+/**
+ * @author Joey
  */
+@Data
+@TableName("user")
 public class UserDO {
+    private Long id;
+    private String name;
+    private Integer age;
+    private String email;
 }

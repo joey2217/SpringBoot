@@ -1,7 +1,10 @@
-package com.joey.admin.service; /**
- * @author EDZ
- * @create 2020-12-30 18:14
- * @desc 
+package com.joey.admin.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.joey.admin.bean.entity.UserDO;
+
+/**
+ * @author Joey
  */
-public interface UserService {
+public interface UserService extends IService<UserDO> {
 }
