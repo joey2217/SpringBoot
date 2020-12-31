@@ -6,8 +6,6 @@ import com.joey.admin.mapper.UserMapper;
 import com.joey.admin.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-
 /**
  * @author Joey
  */

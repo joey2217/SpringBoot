@@ -22,6 +22,9 @@ class UserServiceImplTest {
     void userServiceTest(){
         UserDO userDO = userService.getById(1L);
         log.info(userDO.toString());
+        log.info(String.valueOf(userDO.getCreateTime()));
+        log.info(String.valueOf(userDO.getUpdateTime()));
+        log.info(String.valueOf(userDO.getDeleted()));
         Assertions.assertTrue(userDO!=null);
     }
 
@@ -32,5 +35,11 @@ class UserServiceImplTest {
         log.info(page.getRecords().toString());
         log.info(String.valueOf(page.getTotal()));
         Assertions.assertEquals(page.getTotal(),1);
+    }
+
+    @Test
+    void deleteTest(){
+        boolean remove  = userService.removeById(1);
+        Assertions.assertTrue(remove);
     }
 }
