@@ -17,4 +17,4 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   type-enums-package: com.joey.admin.bean.enums
 app:
-  static-path-prefix: "D:\\static\\"
+  static-location: "D:\\static\\"

@@ -1,9 +1,7 @@
 package com.joey.admin.controller;
 
-import com.mysql.cj.util.DnsSrv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +11,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Joey
+ * 配置
+ * #ConfigurationProperties(prefix = "spring.servlet.multipart", ignoreUnknownFields = false)
+ * public class MultipartProperties {}
  */
 @Slf4j
 @RestController
 public class FileController {
 
-    @Value("${app.static-path-prefix}")
-    private String staticPathPrefix;
+    @Value("${app.static-location}")
+    private String staticLocation;
 
     @Value("${spring.mvc.static-path-pattern}")
     private String staticPathPattern;
@@ -35,15 +38,14 @@ public class FileController {
     @PostMapping("/upload")
     public ResponseEntity unload(@RequestPart("file") MultipartFile file) {
         if (!file.isEmpty()) {
-            String originalFilename = file.getOriginalFilename();
+            String fileName = "file-" + System.currentTimeMillis() + "-" + file.getOriginalFilename();
             try {
-                file.transferTo(new File(staticPathPrefix + originalFilename));
+                file.transferTo(new File(staticLocation + fileName));
             } catch (IOException e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("上传失败!");
             }
-            log.info(staticPathPattern);
-            return ResponseEntity.ok(staticPathPattern.replace("**", "") + originalFilename);
+            return ResponseEntity.ok(staticPathPattern.replace("**", "") + fileName);
         } else {
             return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).body("上传的文件为空!");
         }
@@ -55,19 +57,21 @@ public class FileController {
      * @return
      */
     @PostMapping("/uploads")
-    public ResponseEntity unload(@RequestPart("files") MultipartFile[] files){
+    public ResponseEntity unload(@RequestPart("files") MultipartFile[] files) {
         if (files.length > 0) {
+            List<String> fileNames = new ArrayList<>(files.length);
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
-                    String originalFilename = file.getOriginalFilename();
+                    String fileName = "file-" + System.currentTimeMillis() + "-" + file.getOriginalFilename();
                     try {
-                        file.transferTo(new File(staticPathPrefix + originalFilename));
+                        file.transferTo(new File(staticLocation + fileName));
+                        fileNames.add(fileName);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-            return ResponseEntity.ok("OK");
+            return ResponseEntity.ok(fileNames);
         } else {
             return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).body("上传的文件为空!");
         }
